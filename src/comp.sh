@@ -1,0 +1,2 @@
+#!/bin/sh
+cc -g -o ../bin/AOC main.c day1_1.c day1_2.c day2_1.c day2_2.c day3_1.c day3_2.c day4_1.c day4_2.c day5_1.c day5_2.c day6_1.c day6_2.c day7_1.c day7_2.c day8_1.c day8_2.c day9_1.c day9_2.c day10_1.c day10_2.c day11_1.c day11_2.c day12_1.c day12_2.c day13_1.c day13_2.c day14_1.c day14_2.c day15_1.c day15_2.c day16_1.c day16_2.c day17_1.c day17_2.c day18_1.c day18_2.c day19_1.c day19_2.c day20_1.c day20_2.c day21_1.c day21_2.c day22_1.c day22_2.c day23_1.c day23_2.c day24_1.c day24_2.c day25_1.c day25_2.c load.c
