@@ -4,7 +4,7 @@ void day2_1(){
 	char *dupin = input;
 	int ValidPSW = 0;
 	int InvalidPSW = 0;
-	while(*dupin != '\0')
+	while((*dupin) != '\0')
 	{
 		int lower = atoi(dupin);
 		while(*dupin++ != '-');
