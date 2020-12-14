@@ -12,7 +12,7 @@ char *delimBagLines(char **input)
 	*input = next + 1;
 	return group;
 }
-void countBags(char *input, char *bagname, int bagCount, bool *containGold) 
+void parseInputIntoNamesAndEntries(char *input, char **bagRuleName, char **bagRuleEntry, int bagCount) 
 {
 	char *dupein = input;
 	for(int i = 0; i < bagCount; i++)
@@ -24,22 +24,28 @@ void countBags(char *input, char *bagname, int bagCount, bool *containGold)
 		if(!next)
 			return;
 		unsigned long long containlen = (unsigned long long)(next - rules);
-		char *containName = calloc(containlen, sizeof(char));
-		strncpy(containName, rules, containlen);
-		if(containName[containlen-1] == 's')
-			containName[containlen-1] = '\0';
+		unsigned long long nextlen = strlen(next);
+		bagRuleEntry[i] = calloc(nextlen, sizeof(char));
+		bagRuleName[i] = calloc(containlen, sizeof(char));
+		strncpy(bagRuleName[i], rules, containlen);
+		strncpy(bagRuleEntry[i], next, nextlen);
+		if(bagRuleName[i][containlen-1] == 's')
+			bagRuleName[i][containlen-1] = '\0';
 		else
-			containName[containlen] = '\0';
+			bagRuleName[i][containlen] = '\0';
 
-		if(strstr(next, bagname))
-		{
-		//	printf("name:%s\n<%s>\n\n", containName, next);
-			containGold[i] = true;
-			countBags(input, containName, bagCount, containGold);
-		}
-
-		free(containName);
 		free(rules);
+	}
+}
+void detectBags(char **bagRuleName, char **bagRuleEntry, bool *containGold, char *searchName, int bagCount)
+{
+	for(int i = 0; i < bagCount; i++)
+	{
+		if(strstr(bagRuleEntry[i], searchName))
+		{
+			containGold[i] = true;
+			detectBags(bagRuleName, bagRuleEntry, containGold, bagRuleName[i], bagCount);
+		}
 	}
 }
 void day7_1(){
@@ -49,8 +55,11 @@ void day7_1(){
 	while(input[i] != '\0')
 		if(input[i++] == '\n') bagCount++;
 	bool *containGold = calloc(bagCount, sizeof(bool));
+	char **bagRuleName = calloc(bagCount, sizeof(char*));
+	char **bagRuleEntry = calloc(bagCount, sizeof(char*));
 	printf("%d\n", bagCount);
-	countBags(input, "shiny gold bag", bagCount, containGold);
+	parseInputIntoNamesAndEntries(input, bagRuleName, bagRuleEntry, bagCount);
+	detectBags(bagRuleName, bagRuleEntry, containGold, "shiny gold bag", bagCount);
 	int count = 0;
 	for(i  = 0; i < bagCount; i++)
 	{
