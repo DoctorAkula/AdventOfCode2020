@@ -1,6 +1,7 @@
 #include"load.h"
 #include<string.h>
-void parseInputIntoNamesAndEntries(char *input, char **bagRuleName, char **bagRuleEntry, int bagCount) 
+#include<stdbool.h>
+/*void parseInputIntoNamesAndEntries(char *input, char **bagRuleName, char **bagRuleEntry, int bagCount) 
 {
 	char *dupein = input;
 	for(int i = 0; i < bagCount; i++)
@@ -24,7 +25,7 @@ void parseInputIntoNamesAndEntries(char *input, char **bagRuleName, char **bagRu
 
 		free(rules);
 	}
-}
+}*/
 void day8_1(){
 	char *input = loadinput("../input/day8-1.txt");
 	int inputlen = strlen(input);
