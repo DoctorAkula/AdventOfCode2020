@@ -14,7 +14,6 @@ void day10_1(){
 		while(*index++ != '\n');
 	}
 	qsort(adapters, totalNum, sizeof(int), cmpfunc);
-	adapters[totalNum] = adapters[totalNum - 1] + 3;
 	int Onejolts = 0;
 	int Threejolts = 0;
 	for(i = 1; i < totalNum; i++)
