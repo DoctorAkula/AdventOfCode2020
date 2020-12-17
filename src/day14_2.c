@@ -36,7 +36,7 @@ unsigned long long genCombinations(int combNum, int xcount, unsigned char *xOffs
 		int temp = (combNum >> i) & 1;
 		switch(temp){
 			case 0:
-				addr &= (unsigned long long)~(1 << xOffsets[i]);
+				addr &= (unsigned long long)~((unsigned long long)1 << xOffsets[i]);
 				break;
 			case 1:
 				addr |= (unsigned long long)1 << xOffsets[i];
@@ -74,7 +74,7 @@ void day14_2(){
 			case ('m' + ('e' << 1) + ('m' << 2)):
 				addr = strtoull(dupin + 4, NULL, 10) | Onmask;
 				dupin = strchr(dupin, '=') + 1;
-				unsigned long long val = atoi(dupin);
+				unsigned long long val = strtoull(dupin, NULL, 10);
 				unsigned long long combs = (unsigned long long)1 << xcount;
 				printf("%llu\n", combs);
 				for(int i = 0; i < combs; i++){
