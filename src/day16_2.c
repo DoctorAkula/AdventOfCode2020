@@ -4,7 +4,6 @@
 #define INCR(l, x, h) l <= x && x <= h
 void day16_2(){
 	char *input = loadinput("../input/day16-1.txt");
-	char *nearbyT = strstr(input, "nearby tickets:") + sizeof("nearby tickets:");
 	unsigned int fieldLen = (unsigned int)(strstr(input, "\n\n") - input);
 	char *notes = calloc(fieldLen + 1, sizeof(char));
 	strncpy(notes, input, fieldLen);
@@ -37,62 +36,125 @@ void day16_2(){
 		ranges[y][x] = atoi(dupnotes);
 		printf("-%d\n", ranges[y][x]);
 	}
-	/*Print Valid Tickets*/
-	bool invalid = false;
-	char *wholeTicket = nearbyT;
-	int validTicketCount = 0;
-	char *validTickets[3];
-	while(1)
+	/*Collect entries from tickets*/
+	char *nearbyT = strstr(input, "nearby tickets:") + sizeof("nearby tickets:");
+	int ticketCount = 0;
+	int nearLen = 0;
+	while(nearbyT[nearLen] != '\0')
 	{
-		int ticketEntry = atoi(nearbyT);
+		if(nearbyT[nearLen] == '\n')
+			ticketCount++;
+		nearLen++;
+	}
+	printf("T:%d\nL:%d\n", ticketCount, nearLen);
+	unsigned int ticketEntries[ticketCount][notecount];
+	for(int y = 0; y < ticketCount; y++)
+	{
+		for(int x = 0; x < notecount; x++)
+		{
+			ticketEntries[y][x] = atoi(nearbyT);
+			printf("%d,", ticketEntries[y][x]);
+			if(x < (notecount-1))
+				nearbyT = strchr(nearbyT, ',') + 1;
+		}
+		puts("");
+		nearbyT = strchr(nearbyT, '\n') + 1;
+		if(nearbyT == (void*)1)
+			break;
+	}
+	/*Validate Tickets*/
+	bool invalidTickets[ticketCount];
+	int invalidTicketCount = 0;
+	for(int y = 0; y < ticketCount; y++)
+	{
+		for(int x = 0; x < notecount; x++)
+		{
+			int i;
+			for(i = 0; i < notecount; i++)
+				if(INCR(ranges[i][0], ticketEntries[y][x], ranges[i][1])
+						||
+				   INCR(ranges[i][2], ticketEntries[y][x], ranges[i][3]))
+				{
+					i = -1;
+					break;
+				}
+			if(i != -1){
+				invalidTickets[y] = true;
+				invalidTicketCount++;
+				printf("%d/%d\r", invalidTicketCount, ticketCount);
+				break;
+			}else
+				invalidTickets[y] = false;
+		}
+	}
+	puts("");
+	/*Do The Sieve*/
+	bool notFound[notecount];
+	bool entryKnown[notecount];
+	unsigned int bottomMask[notecount];
+	/*Initialize arrays*/
+	for(int it = 0; it < notecount; it++)
+	{
+		entryKnown[it] = false;
+		notFound[it] = true;
+		bottomMask[it] = ~0;
+	}
+	while(1){
+		for(int x = 0; x < notecount; x++)
+		{
+			if(entryKnown[x]) continue;
+			for(int y = 0; y < ticketCount; y++)
+			{
+				if(invalidTickets[y]) continue;
+				unsigned int curMask = 0;
+				int i;
+				/*Match entries on bit field*/
+				for(i = 0; i < notecount; i++){
+					if(!notFound[i]) continue;
+					if(INCR(ranges[i][0], ticketEntries[y][x], ranges[i][1])
+							||
+					   INCR(ranges[i][2], ticketEntries[y][x], ranges[i][3]))
+					{
+						curMask |= 1 << i;
+					}
+				}
+				/*Elimate non valid entries from bit field*/
+				bottomMask[x] &= curMask;
+			}
+			int bitCount = 0;
+			int bitPos = 0;
+			/*Find Entry to Remove*/
+			for(int it = 0; it < notecount; it++)
+			{
+				if((bottomMask[x] >> it) & 1)
+				{
+					bitCount++;
+					bitPos = it;
+				}
+				if(bitCount > 1)
+					break;
+			}
+			if(bitCount == 1){
+				notFound[bitPos] = false;
+				entryKnown[x] = true;
+			}
+		}
 		int i;
+		/*Check for remaining unkown entries*/
 		for(i = 0; i < notecount; i++)
-			if(INCR(ranges[i][0], ticketEntry, ranges[i][1])
-					||
-			   INCR(ranges[i][2], ticketEntry, ranges[i][3]))
+			if(notFound[i])
 			{
 				i = -1;
 				break;
 			}
-		if(i != -1) invalid = true;
-		char *nextNL = strchr(nearbyT, '\n');
-		char *nextCM = strchr(nearbyT, ',');
-		if(!nextCM || !nextNL)
-			break;
-		else if(nextNL < nextCM)
-		{
-			*nextNL = '\0';
-			if(!invalid){
-				printf("<%s>\n", wholeTicket);
-				validTickets[validTicketCount++] = wholeTicket;
-			}
-			nearbyT = nextNL + 1;
-			wholeTicket = nearbyT;
-		}
-		else
-			nearbyT = nextCM + 1;
+		if(i != -1) break;
 	}
-	while(1){
-		unsigned int rangeMask = ~0;
-		for(int x = 0; x < validTicketCount; x++)
-		{
-			unsigned int thisMask = 0;
-			int ticketEntry = atoi(validTickets[x]);
-			for(int i = 0; i < 6; i++)
-				if(INCR(ranges[i][0], ticketEntry, ranges[i][1])
-						||
-				   INCR(ranges[i][2], ticketEntry, ranges[i][3]))
-				{
-					thisMask |= 1 << i;
-				}
-			rangeMask &= thisMask;
-			validTickets[x] = strchr(validTickets[x], ',') + 1;
-			if(validTickets[x] == (void*)1) goto ende;
-		}
-		printf(" %X ", rangeMask);
+	for(int i = 0; i < notecount; i++){
+		int it;
+		for(it = 0; it < 20; it++) 
+			if((bottomMask[i] >> it) & 1) break;
+		printf("Ticket Entry:%d = Note Entry:%d\n", i + 1, it + 1);
 	}
-ende:
-	puts("");
 	free(notes);
 	free(input);
 }
