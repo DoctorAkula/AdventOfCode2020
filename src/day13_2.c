@@ -9,6 +9,8 @@ void day13_2(){
 	long long *timebuf = NULL;
 	int numCount = 0;
 	int timeOff = -1;
+	int largest = 0;
+	int largestValOff = 0;
 	while((dupin = strchr(dupin, ','))){
 		dupin++;
 		timeOff++;
@@ -17,14 +19,25 @@ void day13_2(){
 		timebuf[numCount] = timeOff;
 		buffer = realloc(buffer, (numCount+1) * sizeof(long long));
 		buffer[numCount] = atoi(dupin);
+		if(buffer[numCount] > largest){
+			largest = buffer[numCount];
+			largestValOff = timebuf[numCount];
+		} 
 		printf("%d - %d\n", timebuf[numCount], buffer[numCount]);
 		numCount++;
 	}
+
+	for(int i = 0; i < numCount; i++)
+	{
+		timebuf[i] -= largestValOff;
+		printf("New offsets: %d\n", timebuf[i]);
+	}
+	printf("largest: %d\n", largest);
 	unsigned long long factor = 1;
 	unsigned long long prod;
 	while(1){
 		int i;
-		prod = factor * buffer[0];
+		prod = factor * largest;
 		for(i = 0; i < numCount; i++)
 		{
 			lldiv_t qurem = lldiv(prod + timebuf[i], buffer[i]);
@@ -41,7 +54,7 @@ void day13_2(){
 		factor++;
 	}
 ende:
-	printf("earliest: %d\n", prod);
+	printf("earliest: %llu\n", prod + timebuf[0]);
 	free(buffer);
 	free(input);
 }
