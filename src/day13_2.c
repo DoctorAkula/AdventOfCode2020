@@ -23,14 +23,14 @@ void day13_2(){
 			largest = buffer[numCount];
 			largestValOff = timebuf[numCount];
 		} 
-		printf("%d - %d\n", timebuf[numCount], buffer[numCount]);
+		printf("%lld - %lld\n", timebuf[numCount], buffer[numCount]);
 		numCount++;
 	}
 
 	for(int i = 0; i < numCount; i++)
 	{
 		timebuf[i] -= largestValOff;
-		printf("New offsets: %d\n", timebuf[i]);
+		printf("New offsets: %lld\n", timebuf[i]);
 	}
 	printf("largest: %d\n", largest);
 	unsigned long long factor = 1;

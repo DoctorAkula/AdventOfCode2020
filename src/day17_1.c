@@ -20,6 +20,7 @@ static bool ThreeDimBitRead(unsigned char *volume, long long x, long long y, lon
 }
 static unsigned char ThreeDimByteRead(unsigned char *volume, long long x, long long y, long long z){
 	unsigned long long linearized = (x >> 3) + (y * bitCubeSide) + (z * bitCubeSide * bitCubeSide);
+	return volume[linearized];
 }
 void day17_1(){
 	char *input = loadinput("../input/day17-1.txt");

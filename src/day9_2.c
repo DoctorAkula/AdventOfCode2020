@@ -30,7 +30,7 @@ found:
 	printf("all is well\n");
 	return;
 notfound:
-	printf("This is borked: %d\n", numbers[x]);
+	printf("This is borked: %lld\n", numbers[x]);
 	int theBorked = numbers[x];
 	/*Searching for contiguos*/
 	int u;

@@ -4,7 +4,7 @@
 static void printBin(unsigned long long val)
 {
 	for(int i = MASKSIZE - 1; i >= 0; i--)
-		printf("%d", (val >> i) & 1);
+		printf("%lld", (val >> i) & 1);
 	putchar('\n');
 }
 void day14_1(){
@@ -49,7 +49,7 @@ void day14_1(){
 				val |= Onmask;
 				val &= ~Offmask;
 				mem[curIndex] = val;
-				printf("mem[%llu] = %llu\n", curIndex, val);
+				printf("mem[%d] = %llu\n", curIndex, val);
 				break;
 		}
 	}while( (dupin = strchr(dupin, '\n') + 1) != (void*)1);

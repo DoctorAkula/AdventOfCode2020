@@ -1,7 +1,7 @@
 #include"load.h"
 #include<string.h>
 #include<stdbool.h>
-#define INCR(l, x, h) l <= x && x <= h
+#define INCR(l, x, h) ((l <= x) && (x <= h))
 void day16_2(){
 	char *input = loadinput("../input/day16-1.txt");
 	unsigned int fieldLen = (unsigned int)(strstr(input, "\n\n") - input);

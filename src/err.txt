@@ -1,0 +1,85 @@
+day9_1.c:33:33: warning: format specifies type 'int' but the argument has type 'long long' [-Wformat]
+        printf("This is borked: %d\n", numbers[x]);
+                                ~~     ^~~~~~~~~~
+                                %lld
+1 warning generated.
+day9_2.c:33:33: warning: format specifies type 'int' but the argument has type 'long long' [-Wformat]
+        printf("This is borked: %d\n", numbers[x]);
+                                ~~     ^~~~~~~~~~
+                                %lld
+1 warning generated.
+day13_2.c:26:23: warning: format specifies type 'int' but the argument has type 'long long' [-Wformat]
+                printf("%d - %d\n", timebuf[numCount], buffer[numCount]);
+                        ~~          ^~~~~~~~~~~~~~~~~
+                        %lld
+day13_2.c:26:42: warning: format specifies type 'int' but the argument has type 'long long' [-Wformat]
+                printf("%d - %d\n", timebuf[numCount], buffer[numCount]);
+                             ~~                        ^~~~~~~~~~~~~~~~
+                             %lld
+day13_2.c:33:31: warning: format specifies type 'int' but the argument has type 'long long' [-Wformat]
+                printf("New offsets: %d\n", timebuf[i]);
+                                     ~~     ^~~~~~~~~~
+                                     %lld
+3 warnings generated.
+day14_1.c:7:16: warning: format specifies type 'int' but the argument has type 'unsigned long long' [-Wformat]
+                printf("%d", (val >> i) & 1);
+                        ~~   ^~~~~~~~~~~~~~
+                        %llu
+day14_1.c:52:34: warning: format specifies type 'unsigned long long' but the argument has type 'int' [-Wformat]
+                                printf("mem[%llu] = %llu\n", curIndex, val);
+                                            ~~~~             ^~~~~~~~
+                                            %d
+2 warnings generated.
+day16_2.c:74:8: warning: '&&' within '||' [-Wlogical-op-parentheses]
+                                if(INCR(ranges[i][0], ticketEntries[y][x], ranges[i][1])
+                                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+day16_2.c:4:32: note: expanded from macro 'INCR'
+#define INCR(l, x, h) (l <= x) && (x <= h)
+                      ~~~~~~~~~^~~~~~~~~~~
+day16_2.c:74:8: note: place parentheses around the '&&' expression to silence this warning
+                                if(INCR(ranges[i][0], ticketEntries[y][x], ranges[i][1])
+                                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+day16_2.c:4:32: note: expanded from macro 'INCR'
+#define INCR(l, x, h) (l <= x) && (x <= h)
+                      ~~~~~~~~~^~~~~~~~~~~
+day16_2.c:76:8: warning: '&&' within '||' [-Wlogical-op-parentheses]
+                                   INCR(ranges[i][2], ticketEntries[y][x], ranges[i][3]))
+                                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+day16_2.c:4:32: note: expanded from macro 'INCR'
+#define INCR(l, x, h) (l <= x) && (x <= h)
+                      ~~~~~~~~~^~~~~~~~~~~
+day16_2.c:76:8: note: place parentheses around the '&&' expression to silence this warning
+                                   INCR(ranges[i][2], ticketEntries[y][x], ranges[i][3]))
+                                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+day16_2.c:4:32: note: expanded from macro 'INCR'
+#define INCR(l, x, h) (l <= x) && (x <= h)
+                      ~~~~~~~~~^~~~~~~~~~~
+day16_2.c:114:9: warning: '&&' within '||' [-Wlogical-op-parentheses]
+                                        if(INCR(ranges[i][0], ticketEntries[y][x], ranges[i][1])
+                                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+day16_2.c:4:32: note: expanded from macro 'INCR'
+#define INCR(l, x, h) (l <= x) && (x <= h)
+                      ~~~~~~~~~^~~~~~~~~~~
+day16_2.c:114:9: note: place parentheses around the '&&' expression to silence this warning
+                                        if(INCR(ranges[i][0], ticketEntries[y][x], ranges[i][1])
+                                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+day16_2.c:4:32: note: expanded from macro 'INCR'
+#define INCR(l, x, h) (l <= x) && (x <= h)
+                      ~~~~~~~~~^~~~~~~~~~~
+day16_2.c:116:9: warning: '&&' within '||' [-Wlogical-op-parentheses]
+                                           INCR(ranges[i][2], ticketEntries[y][x], ranges[i][3]))
+                                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+day16_2.c:4:32: note: expanded from macro 'INCR'
+#define INCR(l, x, h) (l <= x) && (x <= h)
+                      ~~~~~~~~~^~~~~~~~~~~
+day16_2.c:116:9: note: place parentheses around the '&&' expression to silence this warning
+                                           INCR(ranges[i][2], ticketEntries[y][x], ranges[i][3]))
+                                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+day16_2.c:4:32: note: expanded from macro 'INCR'
+#define INCR(l, x, h) (l <= x) && (x <= h)
+                      ~~~~~~~~~^~~~~~~~~~~
+4 warnings generated.
+day17_1.c:23:1: warning: control reaches end of non-void function [-Wreturn-type]
+}
+^
+1 warning generated.

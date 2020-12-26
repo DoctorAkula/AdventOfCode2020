@@ -1,6 +1,6 @@
 #include"load.h"
 #include<string.h>
-#define INCR(l, x, h) l <= x && x <= h
+#define INCR(l, x, h) ((l <= x) && (x <= h))
 void day16_1(){
 	char *input = loadinput("../input/day16-1.txt");
 	char *nearbyT = strstr(input, "nearby tickets:") + sizeof("nearby tickets:");
